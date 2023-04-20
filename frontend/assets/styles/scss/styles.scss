@@ -1,0 +1,118 @@
+@import "variables";
+@import "mixins";
+@import "Fonts";
+
+html {
+  -ms-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  overflow-x: hidden;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1380px;
+  width: 100%;
+  padding: 0 5px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.no-margin {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+body {
+  font-weight: 400;
+  width: 100%;
+  min-height: 100vh;
+  min-height: calc(var(--vh_h, 1vh) * 100);
+  font-family: 'Montserrat';
+  color: $black-color;
+}
+
+
+input {
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+input:-internal-autofill-selected,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+{
+  -webkit-box-shadow: 0 0 0 50px #EBE5E1 inset !important;
+  // color: $text-color !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  font-style: normal;
+  font-weight: normal;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.mobile {
+  @media screen and (min-width: 1200px) {
+    display: none !important;
+  }
+}
+
+.mobile-none {
+  @media screen  and (max-width: 1199px) {
+    display: none !important;
+  }
+}
+
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
