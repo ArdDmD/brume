@@ -3,7 +3,7 @@
     <button class="promo__button">
       {{ text }}
     </button>
-    <img class="promo__img" :src="`/_nuxt/static/imgs/${img}.webp`" :alt="{img}">
+    <img class="promo__img" :src="`/_nuxt/assets/imgs/${img}.webp`" :alt="{img}">
   </div>
 </template>
 

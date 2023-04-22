@@ -28,7 +28,7 @@ export default {
 }
 
 &__parallax{
-    background-image: url("@/static/imgs/parallax.webp");
+    //background-image: url("@/assets/imgs/parallax.webp");
     opacity: 0.75;
     height: 100%;
     background-attachment: fixed;

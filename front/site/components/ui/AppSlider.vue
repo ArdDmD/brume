@@ -10,13 +10,13 @@
   >
     <swiper-slide
       ><img
-        src="@/static/imgs/slide1.jpg" /></swiper-slide
+        src="@/assets/imgs/slide1.jpg" /></swiper-slide
     ><swiper-slide
       ><img
-        src="@/static/imgs/slide2.jpg" /></swiper-slide
+        src="@/assets/imgs/slide2.jpg" /></swiper-slide
     ><swiper-slide
       ><img
-        src="@/static/imgs/slide3.jpg" /></swiper-slide
+        src="@/assets/imgs/slide3.jpg" /></swiper-slide
     >
   </swiper>
 </div>
