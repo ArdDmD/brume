@@ -8,7 +8,7 @@ export class FilesService {
   async createFile(file): Promise<IFile> {
     try {
       const fileName = uuid.v4() + '.jpg';
-      const filePath = path.resolve(__dirname, '..', 'static');
+      const filePath = path.resolve(__dirname, '..', 'static', 'images');
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
@@ -19,7 +19,7 @@ export class FilesService {
         name: file.originalname,
         size: file.size,
         mime: file.mimetype,
-        url: fileName,
+        url: `/api/images/${fileName}`,
       };
     } catch (e) {
       console.log(e);
