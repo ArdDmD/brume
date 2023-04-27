@@ -5,18 +5,13 @@
           type="text"
           v-model="searchValue"
           placeholder="Поиск"
-          class="listing-header__input"
+          class="listing-header__input pl-3"
           @keydown.enter="searcHandler"
           v-if="!isSearching"
       >
-      <v-chip
-          v-else
-          color="primary"
-          closable
-          @click:close="searcReset"
-      >
-        {{ searchValue }}
-      </v-chip>
+      <AppChip @close="searcReset" v-else>
+        {{searchValue}}
+      </AppChip>
     </div>
     <div class="listing-header__actions pl-2 pr-2">
       <slot/>
@@ -25,8 +20,10 @@
 </template>
 <script>
 import {ref} from 'vue'
+import {AppChip} from "~/shared";
 export default {
   name:'ListingHeader',
+  components: {AppChip},
   setup() {
     const isSearching = ref(false)
     const searchValue = ref('')
@@ -57,16 +54,16 @@ $row-height: 44px;
     border: $border;
     display: grid;
     grid-template-columns: 1fr minmax($row-height,max-content);
-    //display: flex;
-    //align-items: center;
-    //justify-content: space-between;
-    //padding: 0px 10px ;
+    box-shadow: $shadow;
     &__search {
       height: 100%;
+      overflow-x: scroll;
       flex: 1 auto;
       box-shadow: 1px 0px 0px 0px rgba(218, 218, 218, 1);
       display: flex;
       align-items: center;
+
+      @include reset-scroll;
     }
     &__actions {
       display: flex;
