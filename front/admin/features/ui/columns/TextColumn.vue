@@ -1,12 +1,16 @@
 <template>
   <div class="cell text-column">
     <span class="text-column__content">
-      {{item[field] || empty }}
+      {{
+        getField(field, item) || empty
+      }}
     </span>
 
   </div>
 </template>
 <script>
+import {getField} from "@/shared";
+
 export default {
   name: 'TextColumn',
   props: {
@@ -23,6 +27,11 @@ export default {
       default: '-'
     },
   },
+  setup() {
+    return {
+      getField
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

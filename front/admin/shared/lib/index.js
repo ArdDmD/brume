@@ -1,5 +1,5 @@
-import {getField} from "~/shared/lib/objectHelpers";
+import {getField} from "./objectHelpers";
 
 export {
-    getField
+    getField,
 }

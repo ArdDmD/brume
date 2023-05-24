@@ -9,6 +9,12 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify'],
   },
+  plugins:['plugins/api.js'],
+  runtimeConfig: {
+    public:{
+      apiBase: process.env.API_URL
+    },
+  },
   vite: {
     css: {
       preprocessorOptions: {

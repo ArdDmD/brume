@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
   ],
+  // ssr:false,
   app: {
     head: {
       htmlAttrs: { lang: "en" },

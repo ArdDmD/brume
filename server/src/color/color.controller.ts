@@ -12,7 +12,7 @@ import { UpdateColorDto } from './dto/update-color.dto';
 import { CreateColorDto } from './dto/create-color.dto';
 import * as Path from 'path';
 
-@Controller('color')
+@Controller('api/color')
 export class ColorController {
   constructor(private colorService: ColorService) {}
   @Post('/create')
@@ -23,7 +23,7 @@ export class ColorController {
   update(@Body() dto: UpdateColorDto) {
     return this.colorService.updateColor(dto);
   }
-  @Get('/all')
+  @Get('/')
   getAll() {
     return this.colorService.getAllColors();
   }

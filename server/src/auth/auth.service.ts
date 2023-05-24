@@ -52,7 +52,6 @@ export class AuthService {
       userDto.password,
       user.password,
     );
-    console.log('tyt', userDto.password, user.password, passwordEquals);
     if (user && passwordEquals) {
       return user;
     }

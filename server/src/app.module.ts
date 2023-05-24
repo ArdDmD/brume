@@ -28,6 +28,7 @@ import { PaginationModule } from './pagination/pagination.module';
 import { FilesModule } from './files/files.module';
 import { Files } from './files/files.model';
 import { ProductFiles } from './product/product-files.model';
+import { FiltersModule } from './filters/filters.module';
 
 @Module({
   imports: [
@@ -76,6 +77,7 @@ import { ProductFiles } from './product/product-files.model';
     AuthModule,
     PaginationModule,
     FilesModule,
+    FiltersModule,
   ],
   controllers: [],
   providers: [],

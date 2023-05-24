@@ -3,9 +3,9 @@ import { IsOptional, IsString } from 'class-validator';
 export class PaginationDto {
   @IsOptional()
   @IsString()
-  page?: string;
+  limit?: string;
 
   @IsOptional()
   @IsString()
-  perPage?: string;
+  offset?: string;
 }

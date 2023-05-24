@@ -29,14 +29,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chip {
+
+
   white-space: nowrap;
 
   background: $grey-color;
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 8px 12px;
 
   font-size: 14px;
-  line-height: 18px;
   color: $primary;
 }
 </style>

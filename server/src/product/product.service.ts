@@ -7,12 +7,14 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationService } from '../pagination/pagination.service';
 import { Op } from 'sequelize';
+import { FiltersService } from '../filters/filters.service';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectModel(Product) private productRepository: typeof Product,
     private paginationService: PaginationService,
+    private filtersService: FiltersService,
   ) {}
 
   async createProduct(dto: CreateProductDto) {
@@ -40,18 +42,22 @@ export class ProductService {
 
   async getProducts(dto) {
     const { offset, limit } = this.paginationService.getPagination(dto);
+    console.log(offset, limit);
     let filters = {};
-
-    if (dto.name) {
-      filters = {
-        name: {
-          [Op.like]: `%${dto.name}%`,
-        },
-        description: {
-          [Op.like]: `%${dto.name}%`,
-        },
-      };
-    }
+    filters = this.filtersService.getFilters(
+      dto.searchValue ? JSON.parse(dto.searchValue) : null,
+    );
+    console.log('dadadadadadadada', filters);
+    // if (dto.name) {
+    //   filters = {
+    //     name: {
+    //       [Op.like]: `%${dto.name}%`,
+    //     },
+    //     description: {
+    //       [Op.like]: `%${dto.name}%`,
+    //     },
+    //   };
+    // }
     if (dto.category) {
       filters = {
         ...filters,

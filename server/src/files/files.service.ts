@@ -14,7 +14,6 @@ export class FilesService {
       }
       const url = path.join(filePath, fileName);
       fs.writeFileSync(url, file.buffer);
-      console.log('oaoaoa', file);
       return {
         name: file.originalname,
         size: file.size,

@@ -9,9 +9,10 @@ import { ProductColor } from './product-color.model';
 import { ProductSize } from './product-size.model';
 import { User } from '../user/user.model';
 import { PaginationService } from '../pagination/pagination.service';
+import { FiltersService } from '../filters/filters.service';
 
 @Module({
-  providers: [ProductService, PaginationService],
+  providers: [ProductService, PaginationService, FiltersService],
   controllers: [ProductController],
   imports: [
     SequelizeModule.forFeature([
