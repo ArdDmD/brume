@@ -38,7 +38,7 @@ import ListingHeader from "./ListingHeader";
 import ListingContent from "./ListingContent";
 import ListingBottom from "./ListingBottom";
 import {useNuxtApp, useRoute, useRouter} from "nuxt/app";
-import {LIMIT} from "~/widgets/ui/listing/consts/pagination";
+import {LIMIT} from "./consts/pagination";
 import {ref} from 'vue'
 export default {
   name: 'ListingComponent',

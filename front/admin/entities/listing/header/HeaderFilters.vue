@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import {HeaderFilter} from "~/entities";
+import HeaderFilter from "./HeaderFilter";
 export default {
   name: 'HeaderFilters',
   components: {

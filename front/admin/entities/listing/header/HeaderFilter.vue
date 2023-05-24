@@ -11,25 +11,25 @@
         :activator="`#filters-list-${index}`"
       >
         <v-list class="pt-0 pb-0">
-          <FilterItemWrapper
+          <HeaderFilterWrapper
             v-for="(item) in itemsList"
             :key="item.id"
             @click="selectHandler(item)">
             {{item[itemText]}}
-          </FilterItemWrapper>
+          </HeaderFilterWrapper>
         </v-list>
       </v-menu>
     </teleport>
   </div>
 </template>
 <script>
-import {AppChip} from "~/shared";
+import {AppChip} from "front/admin/shared";
 import {ref} from "vue";
 import {useNuxtApp} from "nuxt/app";
-import {FilterItemWrapper} from "~/shared";
+import HeaderFilterWrapper from "./HeaderFilterWrapper";
 export default {
   name:'HeaderFilter',
-  components: {FilterItemWrapper, AppChip},
+  components: {HeaderFilterWrapper, AppChip},
   props:{
     itemText:{
       type:String,

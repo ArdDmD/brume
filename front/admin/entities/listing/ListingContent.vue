@@ -79,7 +79,7 @@ export default {
 
     const scrollHandler = (event) => {
       const maxScrollHeight = listWrapper.value.scrollHeight - listWrapper.value.clientHeight
-      if (maxScrollHeight > event.target.scrollTop) return
+      if (maxScrollHeight - 1 > event.target.scrollTop) return
       emit('needLoad')
     }
 
@@ -105,17 +105,18 @@ export default {
 
     &__header,&__row {
       display: grid;
-      box-shadow: 0px 1px 0px 0px rgba(211, 212, 219, 1) inset;
       background: $white;
       width: fit-content;
       min-width: 100%;
     }
     &__header {
       position: sticky;
+      box-shadow: 0px 1px 0px 0px rgba(211, 212, 219, 1);
       top: 0px;
     }
     &__row {
       cursor: pointer;
+      box-shadow: 0px 1px 0px 0px rgba(211, 212, 219, 1) inset;
       &_active {
         background: rgba(65, 111, 200, 0.2);
       }

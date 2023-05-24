@@ -44,7 +44,7 @@
 </template>
 <script>
 import {computed, ref} from 'vue'
-import {HeaderSearch} from "~/features";
+import HeaderSearch from "./header/HeaderSearch";
 export default {
   name:'ListingHeader',
   components: {HeaderSearch},

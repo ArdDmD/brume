@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import {ListingComponent} from '~/widgets'
+import {ListingComponent} from '~/entities'
 import {AddButton} from '~/shared'
 import {TextColumn} from "~/features";
 

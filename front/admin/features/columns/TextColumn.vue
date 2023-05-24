@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import {getField} from "@/shared";
+import {getField} from "~/shared";
 
 export default {
   name: 'TextColumn',
