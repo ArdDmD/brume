@@ -2,15 +2,25 @@
   <div>
     <div
       class="listing-header"
-      id="filters-list"
     >
       <div class="listing-header__control">
         <HeaderSearch
           @search="searchHandler"
           @searchReset="$emit('resetSearch')"
           @openModal="openFiltersSelect"
+          v-if="selectedFiltersList.length === 0"
+          @input="closeFiltersSelect"
+        />
+        <HeaderFilters
+          :has-not-selected="notSelectedFiltersList.length > 0"
+          :filters="selectedFiltersList"
+          @removeFilter="removeFilter"
+          @selectFilter="selectFilter"
+          @openModal="openFiltersSelect"
+          v-else
         />
       </div>
+
       <div class="listing-header__actions pl-2 pr-2">
         <slot name="actions"/>
       </div>
@@ -18,36 +28,34 @@
 
     <div class="listing-header__select" v-if="filters.length > 0">
 <!--      TODO отдельный компонент -->
-      <teleport to="body">
         <v-menu
-          activator="#filters-list"
           width="max-content"
           :min-width="0"
-          :offset="3"
           :open-on-click="false"
+          :attach="true"
           v-model="isFiltersSelectOpen"
         >
           <v-list class="pt-0 pb-0" >
             <v-list-item
-              v-for="item in notSelectedFilters"
+              v-for="item in notSelectedFiltersList"
               :key="item.keyWord"
               class="listing-header__filter"
-              @click="selectFilter(item)"
+              @click="selectFilterList(item)"
             >
               {{item.title}}
             </v-list-item>
           </v-list>
         </v-menu>
-      </teleport>
     </div>
   </div>
 </template>
 <script>
-import {computed, ref} from 'vue'
+import {computed, ref, unref} from 'vue'
 import HeaderSearch from "./header/HeaderSearch";
+import HeaderFilters from "./header/HeaderFilters";
 export default {
   name:'ListingHeader',
-  components: {HeaderSearch},
+  components: {HeaderSearch, HeaderFilters},
   props:{
     searchFields:{
       type: Array,
@@ -67,38 +75,71 @@ export default {
         return acc
       },{})
     }
-
+    const constructRelationFields = (val) => {
+      return val.reduce((acc,e) =>{
+        const [field, value] = Object.entries(e)[0]
+        acc[field] = value
+        return acc
+      }, {})
+    }
     const searchHandler = async (val) => {
-      const searchQuery = constructSearchFields(val)
-      emit('search', searchQuery)
+      let searchObj = {}
+      if (val) {
+        searchObj = constructSearchFields(val)
+      }
+      if (selectedFilters.value.length > 0){
+        searchObj = {...searchObj,...constructRelationFields(selectedFilters.value)}
+      }
+      console.log(searchObj, 'da', val)
+
+      emit('search', searchObj)
     }
 
-
     const selectedFilters = ref([])
-    const selectFilter = (obj) => {
-      selectedFilters.value.push(obj)
+    const selectFilter = ({filterBy, value}) => {
+      selectedFilters.value.push({
+        [filterBy]: value
+      })
+      searchHandler()
+    }
+
+    const selectedFiltersList = ref([])
+    const selectFilterList = (obj) => {
+      selectedFiltersList.value.push(obj)
     }
 
     const isFiltersSelectOpen = ref(false)
     const openFiltersSelect = () => {
       isFiltersSelectOpen.value = true
     }
+    const closeFiltersSelect = () => {
+      isFiltersSelectOpen.value = false
+    }
 
-    const notSelectedFilters = computed(() => {
-      const dictionary = selectedFilters.value.map(e => e.filterBy)
+    const notSelectedFiltersList = computed(() => {
+      const dictionary = selectedFiltersList.value.map(e => e.filterBy)
       return props.filters.filter(e => {
         return !dictionary.includes(e.filterBy)
       })
     })
 
+    const removeFilter = (id) => {
+      selectedFilters.value.splice(id, 1)
+      selectedFiltersList.value.splice(id, 1)
+      searchHandler()
+    }
+
     return {
       searchValue,
       searchHandler,
-      selectFilter,
-      selectedFilters,
+      selectFilterList,
+      selectedFiltersList,
       isFiltersSelectOpen,
       openFiltersSelect,
-      notSelectedFilters
+      notSelectedFiltersList,
+      removeFilter,
+      closeFiltersSelect,
+      selectFilter
     }
   },
 }
@@ -114,6 +155,10 @@ $row-height: 44px;
     grid-template-columns: 1fr minmax($row-height,max-content);
     box-shadow: $shadow;
     margin-bottom: 2px;
+
+    &__select {
+      position: relative;
+    }
 
     &__actions {
       display: flex;

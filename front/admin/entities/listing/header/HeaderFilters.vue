@@ -1,16 +1,17 @@
 <template>
-  <div class="listing-header__filters">
+  <div class="header__filters">
     <HeaderFilter
       v-for="(item, id) in filters"
-      :key="`${item.title}-${id}`"
+      :key="id"
       :query="item.query"
       :filterBy="item.filterBy"
       :itemText="item.itemText"
       :title="item.title"
       @removeFilter="$emit('removeFilter', id)"
-      :index="id"
+      @selectFilter="$emit('selectFilter', $event)"
     />
     <v-btn
+      v-if="hasNotSelected"
       density="compact"
       icon="mdi-plus"
       variant="text"
@@ -33,21 +34,24 @@ export default {
     filters:{
       type:Array,
       default: () => ([])
+    },
+    hasNotSelected:{
+      type:Boolean,
+      default: false
     }
   },
-  emit:['removeFilter', 'openModal']
+  emit:['removeFilter', 'selectFilter', 'openModal']
+
 }
 </script>
 <style lang="scss" scoped>
-.listing{
-  &-header{
-    &__filters{
-      display: flex;
-      align-items: center;
-      overflow: scroll;
+.header{
+  &__filters{
+    display: flex;
+    align-items: center;
+    overflow: scroll;
 
-      @include reset-scroll
-    }
+    @include reset-scroll
   }
 }
 </style>

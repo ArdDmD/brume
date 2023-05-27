@@ -114,6 +114,7 @@ export default {
         routerQueryReplace({
           length: offset.value
         })
+        console.log('a tyt')
         return data
       } catch (e) {
         throw Error(e)

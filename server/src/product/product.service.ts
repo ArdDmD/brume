@@ -42,12 +42,10 @@ export class ProductService {
 
   async getProducts(dto) {
     const { offset, limit } = this.paginationService.getPagination(dto);
-    console.log(offset, limit);
     let filters = {};
     filters = this.filtersService.getFilters(
       dto.searchValue ? JSON.parse(dto.searchValue) : null,
     );
-    console.log('dadadadadadadada', filters);
     // if (dto.name) {
     //   filters = {
     //     name: {

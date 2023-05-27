@@ -15,7 +15,7 @@
           size="14">
         <v-icon
           size="12"
-          @click="$emit('close')"
+          @click.stop="$emit('close')"
         >mdi-close</v-icon>
       </v-btn>
     </v-row>

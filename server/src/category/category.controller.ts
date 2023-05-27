@@ -11,7 +11,7 @@ import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
-@Controller('category')
+@Controller('api/category')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
   @Post('/create')
@@ -22,7 +22,7 @@ export class CategoryController {
   update(@Body() dto: UpdateCategoryDto) {
     return this.categoryService.updateCategory(dto);
   }
-  @Get('/all')
+  @Get('/')
   getAll() {
     return this.categoryService.getAllCategories();
   }

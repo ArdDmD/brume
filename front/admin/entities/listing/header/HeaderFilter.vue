@@ -1,14 +1,17 @@
 <template>
   <div class="filter-select pl-1">
-    <AppChip :id="`filters-list-${index}`" @close="$emit('removeFilter')">
+    <AppChip
+      @close="$emit('removeFilter')"
+      @click="toggleModal"
+    >
       {{title}}: {{select[itemText]}}
     </AppChip>
-    <teleport to="body">
+    <div class="filter-select__drop">
       <v-menu
         v-model="isModalOpen"
         offset="3"
         min-width="max-content"
-        :activator="`#filters-list-${index}`"
+        attach
       >
         <v-list class="pt-0 pb-0">
           <HeaderFilterWrapper
@@ -19,11 +22,11 @@
           </HeaderFilterWrapper>
         </v-list>
       </v-menu>
-    </teleport>
+    </div>
   </div>
 </template>
 <script>
-import {AppChip} from "front/admin/shared";
+import {AppChip} from "~/shared";
 import {ref} from "vue";
 import {useNuxtApp} from "nuxt/app";
 import HeaderFilterWrapper from "./HeaderFilterWrapper";
@@ -35,6 +38,10 @@ export default {
       type:String,
       default:'name'
     },
+    filterBy: {
+      type:String,
+      default:'id',
+    },
     query: {
       type:String,
       default: ''
@@ -43,20 +50,24 @@ export default {
       type:String,
       default: 'Фильтр',
     },
-    index:{
-      type: Number,
-      default: null,
-    }
   },
-  emits:['removeFilter'],
-  async setup(props) {
+  emits:['removeFilter', 'selectFilter'],
+  async setup(props, {emit}) {
     const {$api} = useNuxtApp()
 
     const isModalOpen = ref(true)
+    const toggleModal = () => {
+      isModalOpen.value = !isModalOpen.value
+    }
 
     const loadItems = async () => {
-      const data = await $api(props.query)
-      return data
+      try {
+        const data = await $api(props.query)
+        return data
+      } catch (e) {
+        console.error(e)
+        return []
+      }
     }
 
     const itemsList = ref([])
@@ -66,13 +77,22 @@ export default {
 
     const select = ref({})
     const selectHandler = (item) => {
+      emit('selectFilter', {
+        value:getFilterValue(item),
+        filterBy: props.filterBy
+      })
       select.value = item
+    }
+    const getFilterValue = (item) => {
+      const field = props.filterBy.split('.').pop()
+      return item[field]
     }
     return {
       isModalOpen,
       itemsList,
       select,
-      selectHandler
+      selectHandler,
+      toggleModal
     }
   }
 }
@@ -84,7 +104,10 @@ export default {
     align-items: center;
     height: 100%;
     cursor: pointer;
-    &__item {}
+    &__drop {
+      position: absolute;
+      top: 62px;
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div
     class="listing-header__search pl-2 pr-2"
-    @click="$emit('openModal')"
+    @click="openModalHandler"
   >
     <input
       type="text"
@@ -21,7 +21,7 @@
 import {ref} from "vue";
 import {AppChip} from '~/shared'
 export default {
-  emits:['search','searchReset','openModal'],
+  emits:['search','searchReset','openModal', 'input'],
   name: 'HeaderSearch',
   components:{
     AppChip
@@ -41,11 +41,17 @@ export default {
       emit('searchReset', searchValue.value)
     }
 
+    const openModalHandler = () => {
+      if (searchValue.value) return
+      emit('openModal')
+    }
+
     return {
       searchValue,
       isSearching,
       searchHandler,
-      searchReset
+      searchReset,
+      openModalHandler
     }
   }
 }
