@@ -6,8 +6,10 @@ import { UpdateColorDto } from '../color/dto/update-color.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationService } from '../pagination/pagination.service';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import { FiltersService } from '../filters/filters.service';
+import { Color } from '../color/color.model';
+import { Category } from '../category/category.model';
 
 @Injectable()
 export class ProductService {
@@ -46,59 +48,34 @@ export class ProductService {
     filters = this.filtersService.getFilters(
       dto.searchValue ? JSON.parse(dto.searchValue) : null,
     );
-    // if (dto.name) {
-    //   filters = {
-    //     name: {
-    //       [Op.like]: `%${dto.name}%`,
-    //     },
-    //     description: {
-    //       [Op.like]: `%${dto.name}%`,
-    //     },
-    //   };
-    // }
-    if (dto.category) {
-      filters = {
-        ...filters,
-        categories: {
-          keyWord: {
-            [Op.like]: dto.category,
-          },
-        },
-      };
-    }
-    if (dto.color) {
-      filters = {
-        ...filters,
-        colors: {
-          keyWord: {
-            [Op.like]: dto.color,
-          },
-        },
-      };
-    }
-    if (dto.size) {
-      filters = {
-        ...filters,
-        size: {
-          keyWord: {
-            [Op.like]: dto.color,
-          },
-        },
-      };
-    }
-    const where =
-      Object.keys(filters).length > 0
-        ? {
-            [Op.or]: {
-              ...filters,
-            },
-          }
-        : {};
+
+    console.log('oooo', filters);
+    // const where =
+    //   Object.keys(filters).length > 0
+    //     ? {
+    //         [Op.or]: {
+    //           ...filters,
+    //         },
+    //       }
+    //     : {};
+    const where = { ...filters };
 
     const products = await this.productRepository.findAndCountAll({
       offset,
       limit,
       where,
+      include: [
+        {
+          model: Color,
+          as: 'colors',
+          duplicating: false,
+        },
+        {
+          model: Category,
+          as: 'categories',
+          duplicating: false,
+        },
+      ],
     });
     return products;
   }

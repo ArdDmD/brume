@@ -36,6 +36,7 @@ import {AddButton} from '~/shared'
 import {TextColumn} from "~/features";
 
 import {ref} from "vue";
+import {setField} from "../shared/lib/objectHelpers";
 definePageMeta({ layout: 'default' });
 export default {
   components: {
@@ -55,6 +56,18 @@ export default {
       {title: 'Цвет',query: 'color',filterBy:'colors.keyWord' },
       {title: 'Категории',query: 'category',filterBy:'categories.keyWord' }
     ])
+
+
+
+
+
+    const da = {
+      test: {
+        ooo:'net'
+      }
+    }
+    const net = setField('test.da.noo.pre', '1111', da)
+    console.log(net, 'adada')
     return {
       columns,
       filters

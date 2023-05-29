@@ -2,7 +2,7 @@
   <div class="header__filters">
     <HeaderFilter
       v-for="(item, id) in filters"
-      :key="id"
+      :key="`${item.filterBy}-${item.title}`"
       :query="item.query"
       :filterBy="item.filterBy"
       :itemText="item.itemText"

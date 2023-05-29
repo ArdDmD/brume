@@ -90,7 +90,7 @@ export default {
       if (selectedFilters.value.length > 0){
         searchObj = {...searchObj,...constructRelationFields(selectedFilters.value)}
       }
-      console.log(searchObj, 'da', val)
+      console.log(searchObj, 'da', selectedFilters.value)
 
       emit('search', searchObj)
     }
@@ -124,6 +124,7 @@ export default {
     })
 
     const removeFilter = (id) => {
+      console.log('id deleted', id)
       selectedFilters.value.splice(id, 1)
       selectedFiltersList.value.splice(id, 1)
       searchHandler()
