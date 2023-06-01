@@ -1,7 +1,7 @@
 <template>
   <div class="listing pa-4">
     <ListingHeader
-      :searchFields="['name','description']"
+      :searchFields="['name']"
       :filters="filters"
       @search="searchHandler"
       @resetSearch="searchHandler"

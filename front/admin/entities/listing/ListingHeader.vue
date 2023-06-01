@@ -70,10 +70,10 @@ export default {
   emits:['search', 'resetSearch'],
   setup(props, {emit}) {
     const searchValue = ref('')
-    const constructSearchFields = (val) => {
+    const constructSearchFields = (value) => {
       return props.searchFields.reduce((acc, field) => {
         acc[field] = {
-          val,
+          value,
           filterType: 'like'
         }
         return acc

@@ -49,7 +49,6 @@ export class ProductService {
       dto.searchValue ? JSON.parse(dto.searchValue) : null,
     );
 
-    console.log('oooo', filters);
     // const where =
     //   Object.keys(filters).length > 0
     //     ? {
@@ -63,17 +62,20 @@ export class ProductService {
     const products = await this.productRepository.findAndCountAll({
       offset,
       limit,
+      // where: { id: { [Op.eq]: 1 } },
       where,
       include: [
         {
           model: Color,
           as: 'colors',
           duplicating: false,
+          attributes: [],
         },
         {
           model: Category,
           as: 'categories',
           duplicating: false,
+          attributes: [],
         },
       ],
     });
