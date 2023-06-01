@@ -6,9 +6,11 @@
       :query="item.query"
       :filterBy="item.filterBy"
       :itemText="item.itemText"
+      :filterType="item.filterType"
       :title="item.title"
       @removeFilter="$emit('removeFilter', id)"
       @selectFilter="$emit('selectFilter', $event)"
+      @changeFilter="$emit('changeFilter', $event)"
     />
     <v-btn
       v-if="hasNotSelected"
@@ -40,7 +42,7 @@ export default {
       default: false
     }
   },
-  emit:['removeFilter', 'selectFilter', 'openModal']
+  emit:['removeFilter', 'selectFilter', 'openModal', 'changeFilter']
 
 }
 </script>

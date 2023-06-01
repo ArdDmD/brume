@@ -16,6 +16,7 @@
           :filters="selectedFiltersList"
           @removeFilter="removeFilter"
           @selectFilter="selectFilter"
+          @changeFilter="changeFilter"
           @openModal="openFiltersSelect"
           v-else
         />
@@ -90,7 +91,6 @@ export default {
       if (selectedFilters.value.length > 0){
         searchObj = {...searchObj,...constructRelationFields(selectedFilters.value)}
       }
-      console.log(searchObj, 'da', selectedFilters.value)
 
       emit('search', searchObj)
     }
@@ -106,6 +106,14 @@ export default {
     const selectedFiltersList = ref([])
     const selectFilterList = (obj) => {
       selectedFiltersList.value.push(obj)
+    }
+    const changeFilter = ({filterBy, value}) => {
+      const filterId = selectedFilters.value.findIndex(e => !!e[filterBy])
+      if (filterId === -1) return
+      selectedFilters.value[filterId] = {
+        [filterBy]: value
+      }
+      searchHandler()
     }
 
     const isFiltersSelectOpen = ref(false)
@@ -124,7 +132,6 @@ export default {
     })
 
     const removeFilter = (id) => {
-      console.log('id deleted', id)
       selectedFilters.value.splice(id, 1)
       selectedFiltersList.value.splice(id, 1)
       searchHandler()
@@ -140,7 +147,8 @@ export default {
       notSelectedFiltersList,
       removeFilter,
       closeFiltersSelect,
-      selectFilter
+      selectFilter,
+      changeFilter
     }
   },
 }

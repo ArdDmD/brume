@@ -51,7 +51,7 @@ export default {
       default: 'Фильтр',
     },
   },
-  emits:['removeFilter', 'selectFilter'],
+  emits:['removeFilter', 'selectFilter', 'changeFilter'],
   async setup(props, {emit}) {
     const {$api} = useNuxtApp()
 
@@ -77,10 +77,14 @@ export default {
 
     const select = ref({})
     const selectHandler = (item) => {
-      emit('selectFilter', {
-        value:getFilterValue(item),
-        filterBy: props.filterBy
-      })
+      emit(  Object. keys(select.value).length > 0
+        ? 'changeFilter'
+        : 'selectFilter',
+        {
+          value:getFilterValue(item),
+          filterBy: props.filterBy
+        }
+      )
       select.value = item
     }
     const getFilterValue = (item) => {
