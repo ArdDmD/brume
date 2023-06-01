@@ -42,6 +42,10 @@ export default {
       type:String,
       default:'id',
     },
+    filterType: {
+      type:String,
+      default:'eq',
+    },
     query: {
       type:String,
       default: ''
@@ -82,6 +86,7 @@ export default {
         : 'selectFilter',
         {
           value:getFilterValue(item),
+          filterType: props.filterType,
           filterBy: props.filterBy
         }
       )

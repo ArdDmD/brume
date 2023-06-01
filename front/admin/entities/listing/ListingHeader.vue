@@ -72,7 +72,10 @@ export default {
     const searchValue = ref('')
     const constructSearchFields = (val) => {
       return props.searchFields.reduce((acc, field) => {
-        acc[field] = val
+        acc[field] = {
+          val,
+          filterType: 'like'
+        }
         return acc
       },{})
     }
@@ -96,10 +99,24 @@ export default {
     }
 
     const selectedFilters = ref([])
-    const selectFilter = ({filterBy, value}) => {
+    const selectFilter = ({filterBy, value, filterType}) => {
       selectedFilters.value.push({
-        [filterBy]: value
+        [filterBy]: {
+          value,
+          filterType
+        }
       })
+      searchHandler()
+    }
+    const changeFilter = ({filterBy, value,filterType}) => {
+      const filterId = selectedFilters.value.findIndex(e => !!e[filterBy])
+      if (filterId === -1) return
+      selectedFilters.value[filterId] = {
+        [filterBy]: {
+          value,
+          filterType
+        }
+      }
       searchHandler()
     }
 
@@ -107,14 +124,7 @@ export default {
     const selectFilterList = (obj) => {
       selectedFiltersList.value.push(obj)
     }
-    const changeFilter = ({filterBy, value}) => {
-      const filterId = selectedFilters.value.findIndex(e => !!e[filterBy])
-      if (filterId === -1) return
-      selectedFilters.value[filterId] = {
-        [filterBy]: value
-      }
-      searchHandler()
-    }
+
 
     const isFiltersSelectOpen = ref(false)
     const openFiltersSelect = () => {

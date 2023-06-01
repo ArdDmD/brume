@@ -8,14 +8,13 @@ export class FiltersService {
     const searchValue = dto;
     if (searchValue) {
       filters = Object.entries(searchValue).reduce(
-        (acc: object, [key, val]: string[]): object => {
-          acc[`$${key}$`] = { [Op.like]: `${val}` };
+        (acc: object, [key, val]): object => {
+          acc[`$${key}$`] = { [Op[val.filterType]]: `${val.value}` };
           return acc;
         },
         {},
       );
     }
-
     return { ...filters };
   }
 }

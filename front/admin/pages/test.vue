@@ -53,8 +53,8 @@ export default {
     ])
 
     const filters = ref([
-      {title: 'Цвет',query: 'color',filterBy:'colors.keyWord' },
-      {title: 'Категории',query: 'category',filterBy:'categories.keyWord' }
+      {title: 'Цвет',query: 'color',filterBy:'colors.keyWord'},
+      {title: 'Категории',query: 'category',filterBy:'categories.keyWord'}
     ])
 
     return {
